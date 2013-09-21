@@ -1,6 +1,6 @@
 AiryID
 ======
 
-A web-based Identity Management for AiryKey / ibekg
+OAuth 2.0 authorization server for AiryKey / ibekg
 
 AiryID will be fully open sourced in October, 2013.
