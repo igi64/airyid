@@ -1,7 +1,7 @@
 AiryID
 ======
 
-OAuth 2.0 authorization server for AiryKey / ibekg
+OAuth 2.0 authorization server for IBP technology.
 
 AiryID will be fully open sourced in October, 2013.
 
