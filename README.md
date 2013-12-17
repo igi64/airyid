@@ -1,7 +1,7 @@
 AiryID
 ======
 
-Our LEADict's OpenID Connect authorization server for IBP technology (based on MITRE's OIDC server).  
+The LEADict's OpenID Connect authorization server for IBP technology (based on MITRE's OIDC server).  
 
 https://id.leadict.com/  
 https://leadict.com/.well-known/openid-configuration  
