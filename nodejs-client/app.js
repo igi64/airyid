@@ -12,8 +12,10 @@ var passport = require('passport');
 //var util = require('util');
 var LeadictStrategy = require('passport-openidconnect').Strategy;
 
-var LEADICT_CLIENT_ID = "--insert-leadict-client-id-here--"
-var LEADICT_CLIENT_SECRET = "--insert-leadict-client-secret-here--";
+var LEADICT_CLIENT_ID = "3349f973-c672-4a7a-a946-8caa31234923"
+var LEADICT_CLIENT_SECRET = "Ax5MiCbjBT4nAFtVQetdN64NTgC0VobS2oKLTr-wJhoNCr7akOPaPCPL_7bs05HVWYE7sXp2oyXHM6V25OwxUA";
+var LEADICT_REG_ACCESS_TOKEN = 'eyJhbGciOiJSUzI1NiJ9.eyJhdWQiOlsiMzM0OWY5NzMtYzY3Mi00YTdhLWE5NDYtOGNhYTMxMjM0OTIzIl0sImlzcyI6Imh0dHBzOlwvXC9pZC5sZWFkaWN0LmNvbVwvIiwianRpIjoiZTIyMDc1MWYtZmYzYS00ZTlhLWEzZGMtZjY5Zjg5ZTRhNzVhIiwiaWF0IjoxMzg4MjY3MjE4fQ.qI0xgpnNfMwcJSc-Zayy791XiiG_zopCpxwmyne8qAXhnhHKnwpZDiTGsIgM_h_aV6tBfYwI-FNVOyq3DCH1phvePTbXt_wk2FJBPHoeTLZUWDZjqefGX_WuLZjGv17h6BbefOyGJHqW3jbjzWBjUb1Hv_EFndADbJLol3zqMFw';
+var LEADICT_CLIENT_CONF_URL = 'https://id.leadict.com/register/3349f973-c672-4a7a-a946-8caa31234923';
 
 passport.serializeUser(function(user, done) {
     done(null, user);
@@ -27,14 +29,16 @@ passport.deserializeUser(function(obj, done) {
 //   Strategies in Passport require a `verify` function, which accept
 //   credentials (in this case, an Issuer, User ID, User profile,
 //   accessToken and refreshToken), and invoke a callback with a user object.
+// https://localhost.airybox.org/auth/oidc?resource=acct:admin@leadict.com
 passport.use(new LeadictStrategy({
-        scope: 'profile email',
+        identifierField: 'resource',
+        scope: 'profile email'/*,
         clientID: LEADICT_CLIENT_ID,
         clientSecret: LEADICT_CLIENT_SECRET,
         callbackURL: 'https://localhost.airybox.org/auth/leadict/callback',
         authorizationURL: 'https://id.leadict.com/authorize',
         tokenURL: 'https://id.leadict.com/token',
-        userInfoURL: 'https://id.leadict.com/userinfo'},
+        userInfoURL: 'https://id.leadict.com/userinfo'*/},
     function(iss, sub, profile, accessToken, refreshToken, done) {
         //User.findOrCreate({ id: profile.id }, function (err, user) {
         process.nextTick(function () {
@@ -81,12 +85,17 @@ apps.get('/', routes.index);
 apps.get('/users', user.list);
 
 apps.get('/login', function(req, res){
+    /*passport.disco('zboran@leadict.com',
+        function(req, res) {
+            // Successful authentication, redirect home.
+            res.redirect('/');
+        });*/
     res.send('{"error":"Unauthenticated identity."}');
 });
 
-apps.get('/auth/leadict',  passport.authenticate('openidconnect'));
+apps.get('/auth/oidc',  passport.authenticate('openidconnect'));
 
-apps.get('/auth/leadict/callback',
+apps.get('/auth/oidc/callback',
     passport.authenticate('openidconnect', { failureRedirect: '/login' }),
     //passport.authenticate('openidconnect', { scope: ['profile', 'email'] }),
     function(req, res) {
