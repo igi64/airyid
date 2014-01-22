@@ -1,7 +1,7 @@
 AiryID
 ======
 
-The LEADict's OpenID Connect authorization server (MITRE's OpenID Connect reference implemementation in Java).  
+The LEADict's OpenID Connect authorization server (MITRE's OpenID Connect reference implemementation).  
 
 https://id.leadict.com/  
 https://leadict.com/.well-known/openid-configuration  
